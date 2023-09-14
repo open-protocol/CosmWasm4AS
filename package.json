@@ -1,0 +1,7 @@
+{
+  "name": "cosmwasm4as",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
