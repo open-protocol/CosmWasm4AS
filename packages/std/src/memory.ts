@@ -3,25 +3,23 @@ export class Region {
 
   public static alloc(size: usize): usize {
     const dataPtr = heap.alloc(size);
-    if (!isInteger<u32>(dataPtr)) {
-      throw new Error("pointer doesn't fit in u32");
-    }   
-    if (!isInteger<u32>(size)) {
-      throw new Error("capacity doesn't fit in u32");
-    }
-    return this.buildRegionFromComponents(dataPtr, size, 0);
+    return this.buildRegionFromComponents(dataPtr as u32, size as u32, 0);
+  }
+
+  public static consumeRegion(ptr: usize): Uint8Array {
+    const regionStart = load<u32>(ptr);
+    const length = load<u32>(ptr + 4);
+    const capacity = load<u32>(ptr + 8);
+    const data = new Uint8Array(capacity);
+    memory.copy(data.byteOffset, regionStart, length);
+    heap.free(regionStart);
+    return data;
   }
 
   public static buildRegion(data: Uint8Array): usize {
     const dataPtr = heap.alloc(data.byteLength);
-    if (!isInteger<u32>(dataPtr)) {
-      throw new Error("pointer doesn't fit in u32");
-    }   
-    if (!isInteger<u32>(data.byteLength)) {
-      throw new Error("length doesn't fit in u32");
-    }
     memory.copy(dataPtr, data.byteOffset, data.byteLength);
-    return this.buildRegionFromComponents(dataPtr, data.byteLength, data.byteLength);
+    return this.buildRegionFromComponents(dataPtr as u32, data.byteLength, data.byteLength);
   }
 
   static buildRegionFromComponents(offset: u32, capacity: u32, length: u32): usize {
