@@ -1,3 +1,6 @@
+import { Storage } from "./interfaces";
+import { Region } from "./memory";
+
 @external("env", "db_read")
 declare function dbRead(key: u32): u32;
 
@@ -33,3 +36,25 @@ declare function debug(sourcePtr: u32): void;
 
 @external("env", "query_chain")
 declare function queryChain(request: u32): u32;
+
+export class ExternalStorage implements Storage {
+  public get(key: Uint8Array): Uint8Array | undefined {
+    const keyPtr = Region.buildRegion(key);
+    const valuePtr = dbRead(keyPtr);
+    if (valuePtr === 0) {
+      return undefined;
+    }
+    return Region.consumeRegion(valuePtr);
+  }
+
+  public set(key: Uint8Array, value: Uint8Array): void {
+    const keyPtr = Region.buildRegion(key);
+    const valuePtr = Region.buildRegion(value);
+    dbWrite(keyPtr, valuePtr);
+  }
+
+  public remove(key: Uint8Array): void {
+    const keyPtr = Region.buildRegion(key);
+    dbRemove(keyPtr);
+  }
+}
