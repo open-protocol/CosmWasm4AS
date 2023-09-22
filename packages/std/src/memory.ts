@@ -12,6 +12,7 @@ export class Region {
     const capacity = load<u32>(ptr + 8);
     const data = new Uint8Array(capacity);
     memory.copy(data.byteOffset, regionStart, length);
+    heap.free(ptr);
     heap.free(regionStart);
     return data;
   }
