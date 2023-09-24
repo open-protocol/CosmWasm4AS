@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "node tests",
-    "asbuild:debug": "asc src/index.ts --target debug",
-    "asbuild:release": "asc src/index.ts --target release",
+    "asbuild:debug": "asc assembly/src/index.ts --target debug",
+    "asbuild:release": "asc assembly/src/index.ts --target release",
     "asbuild": "npm run asbuild:debug && npm run asbuild:release",
     "start": "npx serve ."
   },
