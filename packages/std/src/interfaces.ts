@@ -1,28 +1,49 @@
-export interface Storage {
-  get: (key: Uint8Array) => Uint8Array | undefined;
+import { Addr, CanonicalAddr } from "./addresses";
 
-  set: (key: Uint8Array, value: Uint8Array) => void;
+export class Storage {
+  public get(key: Uint8Array): Uint8Array | null { 
+    throw new Error("not implemented");
+  }
 
-  remove: (key: Uint8Array) => void;
+  public set(key: Uint8Array, value: Uint8Array): void {
+    throw new Error("not implemented");
+  }
+
+  public remove(key: Uint8Array): void {
+    throw new Error("not implemented");
+  }
 }
 
-export type Addr = string;
-export type CanonicalAddr = Uint8Array;
+export class Api {
+  public addrValidate(human: string): Addr {
+    throw new Error("not implemented");
+  }
 
-export interface Api {
-  addrValidate: (human: string) => Addr;
+  public addrCanonicalize(human: string): CanonicalAddr {
+    throw new Error("not implemented");
+  }
 
-  addrCanonicalize: (human: string) => CanonicalAddr;
+  public addrHumanize(canonical: CanonicalAddr): Addr {
+    throw new Error("not implemented");
+  }
 
-  addrHumanize: (canonical: CanonicalAddr) => Addr;
+  public secp256k1Verify(messageHash: Uint8Array, signature: Uint8Array, publicKey: Uint8Array): boolean {
+    throw new Error("not implemented");
+  }
 
-  secp256k1Verify: (messageHash: Uint8Array, signature: Uint8Array, publicKey: Uint8Array) => boolean;
+  public secp256k1RecoverPubkey(messageHash: Uint8Array, signature: Uint8Array, recoveryParam: u8): Uint8Array {
+    throw new Error("not implemented");
+  }
 
-  secp256k1RecoverPubkey: (messageHash: Uint8Array, signature: Uint8Array, recoveryParam: u8) => Uint8Array;
+  public ed25519Verify(message: Uint8Array, signature: Uint8Array, publicKey: Uint8Array): boolean {
+    throw new Error("not implemented");
+  }
 
-  ed25519Verify: (message: Uint8Array, signature: Uint8Array, publicKey: Uint8Array) => boolean;
+  public ed25519BatchVerify(messages: Array<Uint8Array>, signatures: Array<Uint8Array>, publicKeys: Array<Uint8Array>): boolean {
+    throw new Error("not implemented");
+  }
 
-  ed25519BatchVerify: (messages: Array<Uint8Array>, signatures: Array<Uint8Array>, publicKeys: Array<Uint8Array>) => boolean;
-
-  debug: (message: string) => void;
+  public debug(message: string): void {
+    throw new Error("not implemented");
+  }
 }

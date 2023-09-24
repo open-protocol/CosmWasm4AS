@@ -7,4 +7,3 @@ export function allocate(size: usize): u32 {
 export function deallocate(pointer: u32): void {
   Region.consumeRegion(pointer);
 }
-
