@@ -47,3 +47,11 @@ export class Api {
     throw new Error("not implemented");
   }
 }
+
+export type QuerierResult = Uint8Array;
+
+export class Querier {
+  public rawQuery(binRequest: Uint8Array): QuerierResult {
+    throw new Error("not implemented");
+  }
+}

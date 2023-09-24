@@ -1,5 +1,6 @@
+import { JSON } from "assemblyscript-json/assembly";
 import { Addr, CanonicalAddr } from "./addresses";
-import { Api, Storage } from "./interfaces";
+import { Api, Querier, QuerierResult, Storage } from "./interfaces";
 import { Region } from "./memory";
 import { Sections } from "./sections";
 
@@ -184,5 +185,15 @@ export class ExternalApi extends Api {
   public debug(message: string): void {
     const regionPtr = Region.buildRegion(Uint8Array.wrap(String.UTF8.encode(message)));
     debug(regionPtr);
+  }
+}
+
+export class ExternalQuerier extends Querier {
+  public rawQuery(binRequest: Uint8Array): QuerierResult {
+    const requestPtr = Region.buildRegion(binRequest);
+    const responsePtr = queryChain(requestPtr);
+    const response = Region.consumeRegion(responsePtr);
+    <JSON.Obj>(JSON.parse(String.UTF8.decode(response)));
+    return response;
   }
 }
