@@ -11,7 +11,7 @@ export class Region {
     const length = load<u32>(ptr + 4);
     const capacity = load<u32>(ptr + 8);
     const data = new Uint8Array(capacity);
-    memory.copy(data.byteOffset, regionStart, length);
+    memory.copy(data.dataStart, regionStart, length);
     heap.free(ptr);
     heap.free(regionStart);
     return data;
@@ -19,7 +19,7 @@ export class Region {
 
   public static buildRegion(data: Uint8Array): usize {
     const dataPtr = heap.alloc(data.byteLength);
-    memory.copy(dataPtr, data.byteOffset, data.byteLength);
+    memory.copy(dataPtr, data.dataStart, data.byteLength);
     return this.buildRegionFromComponents(dataPtr as u32, data.byteLength, data.byteLength);
   }
 

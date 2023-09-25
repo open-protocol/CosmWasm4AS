@@ -6,7 +6,7 @@ export class Sections {
     }
     outLen += (4 * sections.length);
     const outData = new Uint8Array(outLen);
-    let outDataOff = outData.byteOffset;
+    let outDataOff = outData.dataStart;
     for (let i = 0; i < sections.length; i++) {
       const sectionLen = new Uint32Array(1);
       sectionLen[0] = sections[i].byteLength;
