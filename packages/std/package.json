@@ -2,7 +2,7 @@
   "name": "@cosmwasm4as/std",
   "version": "0.0.1",
   "description": "CosmWasm Standard Libraries for AssemblyScript",
-  "main": "index.js",
+  "types": "assembly/index.ts",
   "scripts": {
     "test": "node tests",
     "asbuild:debug": "asc assembly/src/index.ts --target debug",
