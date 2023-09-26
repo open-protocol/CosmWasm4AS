@@ -1,6 +1,6 @@
 import { JSON } from "json-as/assembly";
 import { Addr, CanonicalAddr } from "./addresses";
-import { Api, Querier, QuerierResult, Storage } from "./interfaces";
+import { Api, Querier, QuerierResult, Storage } from "./abstracts";
 import { Region } from "./memory";
 import { Sections } from "./sections";
 
