@@ -1,4 +1,4 @@
-import { JSON } from "assemblyscript-json/assembly";
+import { JSON } from "json-as/assembly";
 import { Addr, CanonicalAddr } from "./addresses";
 import { Api, Querier, QuerierResult, Storage } from "./interfaces";
 import { Region } from "./memory";
@@ -193,7 +193,7 @@ export class ExternalQuerier extends Querier {
     const requestPtr = Region.buildRegion(binRequest);
     const responsePtr = queryChain(requestPtr);
     const response = Region.consumeRegion(responsePtr);
-    <JSON.Obj>(JSON.parse(String.UTF8.decode(response)));
+    JSON.parse(String.UTF8.decode(response));
     return response;
   }
 }
