@@ -4,6 +4,10 @@ import { Storage } from "../std";
 export class Item<T> {
   storageKey: Uint8Array;
 
+  constructor(storageKey: string) {
+    this.storageKey = Uint8Array.wrap(String.UTF8.encode(storageKey));
+  }
+
   public save(store: Storage, data: T): void {
     store.set(this.storageKey, Uint8Array.wrap(String.UTF8.encode(JSON.stringify(data))));
   }
