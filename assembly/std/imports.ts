@@ -125,7 +125,7 @@ export class ExternalApi extends Api {
     const sigSendPtr = Region.buildRegion(signature);
     const pubkeySendPtr = Region.buildRegion(publicKey);
     const result = secp256k1Verify(hashSendPtr, sigSendPtr, pubkeySendPtr);
-    // todo: errors will be replaced typed error
+    // todo: errors will be replaced with typed error
     switch (result) {
       case 0: return true;
       case 1: return false;
@@ -144,8 +144,8 @@ export class ExternalApi extends Api {
     const result = secp256k1RecoverPubkey(hashSendPtr, sigSendPtr, recoveryParam);
     const errorCode = (result >> 32) as u32;
     const pubkeyPtr = (result & 0xFFFFFFFF) as u32;
-    // todo: errors will be replaced typed error
-    switch(errorCode) {
+    // todo: errors will be replaced with typed error
+    switch (errorCode) {
       case 0: return Region.consumeRegion(pubkeyPtr);
       case 2: throw new Error("MessageTooLong must not happen. This is a bug in the VM.");
       case 3: throw new Error("RecoverPubkeyError::InvalidHashFormat");
@@ -160,8 +160,8 @@ export class ExternalApi extends Api {
     const sigSendPtr = Region.buildRegion(signature);
     const pubkeySendPtr = Region.buildRegion(publicKey);
     const result = ed25519Verify(msgSendPtr, sigSendPtr, pubkeySendPtr);
-    // todo: errors will be replaced typed error
-    switch(result) {
+    // todo: errors will be replaced with typed error
+    switch (result) {
       case 0: return true;
       case 1: return false;
       case 2: throw new Error("Error code 2 unused since CosmWasm 0.15. This is a bug in the VM.");
@@ -181,8 +181,8 @@ export class ExternalApi extends Api {
     const pubkeysEncoded = Sections.encodeSections(publicKeys);
     const pubkeysSendPtr = Region.buildRegion(pubkeysEncoded);
     const result = ed25519BatchVerify(msgsSendPtr, sigsSendPtr, pubkeysSendPtr);
-    // todo: errors will be replaced typed error
-    switch(result) {
+    // todo: errors will be replaced with typed error
+    switch (result) {
       case 0: return true;
       case 1: return false;
       case 2: throw new Error("Error code 2 unused since CosmWasm 0.15. This is a bug in the VM.");
