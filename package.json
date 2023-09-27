@@ -13,8 +13,7 @@
   "author": "code0xff <ian.jungyong.um@gmail.com>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "assemblyscript": "^0.27.9",
-    "json-as": "^0.5.61"
+    "assemblyscript": "^0.27.9"
   },
   "type": "module",
   "exports": {
@@ -22,5 +21,8 @@
       "import": "./build/release.js",
       "types": "./build/release.d.ts"
     }
+  },
+  "dependencies": {
+    "json-as": "^0.5.61"
   }
 }
