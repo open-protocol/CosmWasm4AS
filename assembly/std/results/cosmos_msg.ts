@@ -16,9 +16,9 @@ export class BankMsg {
 
 // @ts-ignore
 @json
-export class BankSendMsg { 
+export class BankSendMsg {
   to_address: string;
-  amount: Array<Coin>; 
+  amount: Array<Coin>;
 }
 
 // @ts-ignore
