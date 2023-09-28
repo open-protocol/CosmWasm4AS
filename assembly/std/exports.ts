@@ -10,6 +10,6 @@ export function deallocate(pointer: u32): void {
   Region.consumeRegion(pointer);
 }
 
-function makeDependencies(): Deps<ExternalStorage, ExternalApi, ExternalQuerier> {
+function makeDependencies(): Deps {
   return new Deps(new ExternalStorage(), new ExternalApi(), new ExternalQuerier());
 }
