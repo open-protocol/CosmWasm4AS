@@ -43,12 +43,12 @@ export class Response {
   }
 
   public addSubmessages(msgs: Array<SubMsg>): Response {
-    this.messages.concat(msgs);
+    this.messages = this.messages.concat(msgs);
     return this;
   }
 
   public addEvents(events: Array<Event>): Response {
-    this.events.concat(events);
+    this.events = this.events.concat(events);
     return this;
   }
 
