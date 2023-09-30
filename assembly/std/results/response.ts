@@ -1,3 +1,4 @@
+import { JSON } from "json-as/assembly";
 import { CosmosMsg } from "./cosmos_msg";
 import { Attribute, Event } from "./events";
 import { SubMsg } from "./submessages";
@@ -8,7 +9,7 @@ export class Response {
   messages: Array<SubMsg>;
   attributes: Array<Attribute>;
   events: Array<Event>;
-  data: Uint8Array | null;
+  data: ArrayBuffer | null;
 
   constructor() {
     this.messages = new Array();
@@ -53,7 +54,7 @@ export class Response {
   }
 
   public setData(data: Uint8Array): Response {
-    this.data = data;
+    this.data = data.buffer;
     return this;
   }
 }

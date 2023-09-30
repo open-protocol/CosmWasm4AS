@@ -1,3 +1,4 @@
+import { JSON } from "json-as/assembly";
 import { Coin } from "../coin";
 
 // @ts-ignore

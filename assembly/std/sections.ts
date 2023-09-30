@@ -5,10 +5,10 @@ export class Sections {
       outLen += sections[i].byteLength;
     }
     outLen += (4 * sections.length);
-    const outData = new Uint8Array(outLen);
+    const outData = Uint8Array.wrap(new ArrayBuffer(outLen));
     let outDataStart = outData.dataStart;
     for (let i = 0; i < sections.length; i++) {
-      const sectionLen = new Uint32Array(1);
+      const sectionLen = Uint32Array.wrap(new ArrayBuffer(4));
       sectionLen[0] = sections[i].byteLength;
       const sectionLenBuf = Uint8Array.wrap(sectionLen.buffer).reverse();
       outData.set(sections[i], outDataStart);

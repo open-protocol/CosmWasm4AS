@@ -1,3 +1,4 @@
+import { JSON } from "json-as/assembly";
 import { CosmosMsg } from "./cosmos_msg";
 import { Event } from "./events";
 
@@ -7,31 +8,17 @@ const UNUSED_MSG_ID: u64 = 0;
 
 // @ts-ignore
 @json
-class U64 {
-  value: u64;
-
-  constructor(value: u64) {
-    this.value = value;
-  }
-
-  public get(): u64 {
-    return this.value;
-  }
-}
-
-// @ts-ignore
-@json
 export class SubMsg {
   id: u64;
   msg: CosmosMsg;
-  gas_limit: U64 | null;
+  gas_limit: u64;
   reply_on: ReplyOn;
 
   constructor(id: u64, msg: CosmosMsg, replyOn: ReplyOn) {
     this.id = id;
     this.msg = msg;
     this.reply_on = replyOn;
-    this.gas_limit = null;
+    this.gas_limit = 0;
   }
 
   public static replyNever(msg: CosmosMsg): SubMsg {
@@ -51,7 +38,7 @@ export class SubMsg {
   }
 
   public withGasLimit(limit: u64): SubMsg {
-    this.gas_limit = new U64(limit);
+    this.gas_limit = limit;
     return this;
   }
 
@@ -78,5 +65,5 @@ export class SubMsgResult {
 @json
 export class SubMsgResponse {
   events: Array<Event>;
-  data: Uint8Array | null;
+  data: ArrayBuffer | null;
 }

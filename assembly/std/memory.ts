@@ -16,7 +16,7 @@ export class Region {
     const regionStart = load<u32>(ptr);
     const length = load<u32>(ptr + 4);
     const capacity = load<u32>(ptr + 8);
-    const data = new Uint8Array(capacity);
+    const data = Uint8Array.wrap(new ArrayBuffer(capacity));
     memory.copy(data.dataStart, regionStart, length);
     heap.free(ptr);
     heap.free(regionStart);
