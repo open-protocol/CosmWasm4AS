@@ -25,7 +25,7 @@ export function doInstantiate<M>(instantiateFn: (deps: Deps, env: Env, info: Mes
   const deps = makeDependencies();
   const res = instantiateFn(deps, env, info, msg);
   const v = Uint8Array.wrap(String.UTF8.encode(JSON.stringify(res)));
-  return Region.buildRegion(v);
+  return Region.releaseBuffer(v);
 }
 
 export function doExecute<M>(executeFn: (deps: Deps, env: Env, info: MessageInfo, msg: M) => Response, envPtr: u32, infoPtr: u32, msgPtr: u32): u32 {
@@ -40,7 +40,7 @@ export function doExecute<M>(executeFn: (deps: Deps, env: Env, info: MessageInfo
   const deps = makeDependencies();
   const res = executeFn(deps, env, info, msg);
   const v = Uint8Array.wrap(String.UTF8.encode(JSON.stringify(res)));
-  return Region.buildRegion(v);
+  return Region.releaseBuffer(v);
 }
 
 export function doMigrate<M>(migrateFn: (deps: Deps, env: Env, msg: M) => Response, envPtr: u32, msgPtr: u32): u32 {
@@ -53,7 +53,7 @@ export function doMigrate<M>(migrateFn: (deps: Deps, env: Env, msg: M) => Respon
   const deps = makeDependencies();
   const res = migrateFn(deps, env, msg);
   const v = Uint8Array.wrap(String.UTF8.encode(JSON.stringify(res)));
-  return Region.buildRegion(v);
+  return Region.releaseBuffer(v);
 }
 
 export function doSudo<M>(sudoFn: (deps: Deps, env: Env, msg: M) => Response, envPtr: u32, msgPtr: u32): u32 {
@@ -66,7 +66,7 @@ export function doSudo<M>(sudoFn: (deps: Deps, env: Env, msg: M) => Response, en
   const deps = makeDependencies();
   const res = sudoFn(deps, env, msg);
   const v = Uint8Array.wrap(String.UTF8.encode(JSON.stringify(res)));
-  return Region.buildRegion(v);
+  return Region.releaseBuffer(v);
 }
 
 export function doReply(replyFn: (deps: Deps, env: Env, msg: Reply) => Response, envPtr: u32, msgPtr: u32): u32 {
@@ -79,7 +79,7 @@ export function doReply(replyFn: (deps: Deps, env: Env, msg: Reply) => Response,
   const deps = makeDependencies();
   const res = replyFn(deps, env, msg);
   const v = Uint8Array.wrap(String.UTF8.encode(JSON.stringify(res)));
-  return Region.buildRegion(v);
+  return Region.releaseBuffer(v);
 }
 
 export function doQuery<M>(queryFn: (deps: Deps, env: Env, msg: M) => Response, envPtr: u32, msgPtr: u32): u32 {
@@ -92,7 +92,7 @@ export function doQuery<M>(queryFn: (deps: Deps, env: Env, msg: M) => Response, 
   const deps = makeDependencies();
   const res = queryFn(deps, env, msg);
   const v = Uint8Array.wrap(String.UTF8.encode(JSON.stringify(res)));
-  return Region.buildRegion(v);
+  return Region.releaseBuffer(v);
 }
 
 function makeDependencies(): Deps {

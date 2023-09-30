@@ -6,6 +6,12 @@ export class Region {
     return this.buildRegionFromComponents(dataPtr as u32, size as u32, 0);
   }
 
+  public static releaseBuffer(buffer: Uint8Array): usize {
+    const region = this.buildRegion(buffer);
+    heap.free(buffer.dataStart);
+    return region;
+  }
+
   public static consumeRegion(ptr: usize): Uint8Array {
     const regionStart = load<u32>(ptr);
     const length = load<u32>(ptr + 4);
