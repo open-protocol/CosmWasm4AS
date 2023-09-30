@@ -5,8 +5,8 @@
   "types": "assembly/index.ts",
   "scripts": {
     "test": "node tests",
-    "asbuild:debug": "asc assembly/index.ts --transform --target debug",
-    "asbuild:release": "asc assembly/index.ts --transform --target release",
+    "asbuild:debug": "asc assembly/index.ts --target debug",
+    "asbuild:release": "asc assembly/index.ts --target release",
     "asbuild": "npm run asbuild:debug && npm run asbuild:release",
     "start": "npx serve ."
   },

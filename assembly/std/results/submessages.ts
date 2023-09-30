@@ -1,23 +1,37 @@
 import { CosmosMsg } from "./cosmos_msg";
 import { Event } from "./events";
 
-export type ReplyOn = "always" | "error" | "success" | "never";
+export type ReplyOn = string;
 
 const UNUSED_MSG_ID: u64 = 0;
+
+// @ts-ignore
+@json
+class U64 {
+  value: u64;
+
+  constructor(value: u64) {
+    this.value = value;
+  }
+
+  public get(): u64 {
+    return this.value;
+  }
+}
 
 // @ts-ignore
 @json
 export class SubMsg {
   id: u64;
   msg: CosmosMsg;
-  gas_limit: u64 | null;
+  gas_limit: U64 | null;
   reply_on: ReplyOn;
 
-  constructor(id: u64, msg: CosmosMsg, replyOn: ReplyOn, gasLimit: u64 | null) {
+  constructor(id: u64, msg: CosmosMsg, replyOn: ReplyOn) {
     this.id = id;
     this.msg = msg;
     this.reply_on = replyOn;
-    this.gas_limit = gasLimit;
+    this.gas_limit = null;
   }
 
   public static replyNever(msg: CosmosMsg): SubMsg {
@@ -37,12 +51,12 @@ export class SubMsg {
   }
 
   public withGasLimit(limit: u64): SubMsg {
-    this.gas_limit = limit;
+    this.gas_limit = new U64(limit);
     return this;
   }
 
   static replyOn(msg: CosmosMsg, id: u64, replyOn: ReplyOn): SubMsg {
-    return new SubMsg(id, msg, replyOn, null);
+    return new SubMsg(id, msg, replyOn);
   }
 }
 

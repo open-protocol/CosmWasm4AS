@@ -18,9 +18,9 @@ export function doInstantiate<M>(instantiateFn: (deps: Deps, env: Env, info: Mes
   const infoBytes = Region.consumeRegion(infoPtr);
   const msgBytes = Region.consumeRegion(msgPtr);
 
-  const env = JSON.parse<Env>(String.UTF8.decode(envBytes));
-  const info = JSON.parse<MessageInfo>(String.UTF8.decode(infoBytes));
-  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes));
+  const env = JSON.parse<Env>(String.UTF8.decode(envBytes.buffer));
+  const info = JSON.parse<MessageInfo>(String.UTF8.decode(infoBytes.buffer));
+  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes.buffer));
 
   const deps = makeDependencies();
   const res = instantiateFn(deps, env, info, msg);
@@ -33,9 +33,9 @@ export function doExecute<M>(executeFn: (deps: Deps, env: Env, info: MessageInfo
   const infoBytes = Region.consumeRegion(infoPtr);
   const msgBytes = Region.consumeRegion(msgPtr);
 
-  const env = JSON.parse<Env>(String.UTF8.decode(envBytes));
-  const info = JSON.parse<MessageInfo>(String.UTF8.decode(infoBytes));
-  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes));
+  const env = JSON.parse<Env>(String.UTF8.decode(envBytes.buffer));
+  const info = JSON.parse<MessageInfo>(String.UTF8.decode(infoBytes.buffer));
+  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes.buffer));
 
   const deps = makeDependencies();
   const res = executeFn(deps, env, info, msg);
@@ -47,8 +47,8 @@ export function doMigrate<M>(migrateFn: (deps: Deps, env: Env, msg: M) => Respon
   const envBytes = Region.consumeRegion(envPtr);
   const msgBytes = Region.consumeRegion(msgPtr);
 
-  const env = JSON.parse<Env>(String.UTF8.decode(envBytes));
-  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes));
+  const env = JSON.parse<Env>(String.UTF8.decode(envBytes.buffer));
+  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes.buffer));
 
   const deps = makeDependencies();
   const res = migrateFn(deps, env, msg);
@@ -60,8 +60,8 @@ export function doSudo<M>(sudoFn: (deps: Deps, env: Env, msg: M) => Response, en
   const envBytes = Region.consumeRegion(envPtr);
   const msgBytes = Region.consumeRegion(msgPtr);
 
-  const env = JSON.parse<Env>(String.UTF8.decode(envBytes));
-  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes));
+  const env = JSON.parse<Env>(String.UTF8.decode(envBytes.buffer));
+  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes.buffer));
 
   const deps = makeDependencies();
   const res = sudoFn(deps, env, msg);
@@ -73,8 +73,8 @@ export function doReply(replyFn: (deps: Deps, env: Env, msg: Reply) => Response,
   const envBytes = Region.consumeRegion(envPtr);
   const msgBytes = Region.consumeRegion(msgPtr);
 
-  const env = JSON.parse<Env>(String.UTF8.decode(envBytes));
-  const msg = JSON.parse<Reply>(String.UTF8.decode(msgBytes));
+  const env = JSON.parse<Env>(String.UTF8.decode(envBytes.buffer));
+  const msg = JSON.parse<Reply>(String.UTF8.decode(msgBytes.buffer));
 
   const deps = makeDependencies();
   const res = replyFn(deps, env, msg);
@@ -86,8 +86,8 @@ export function doQuery<M>(queryFn: (deps: Deps, env: Env, msg: M) => Response, 
   const envBytes = Region.consumeRegion(envPtr);
   const msgBytes = Region.consumeRegion(msgPtr);
 
-  const env = JSON.parse<Env>(String.UTF8.decode(envBytes));
-  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes));
+  const env = JSON.parse<Env>(String.UTF8.decode(envBytes.buffer));
+  const msg = JSON.parse<M>(String.UTF8.decode(msgBytes.buffer));
 
   const deps = makeDependencies();
   const res = queryFn(deps, env, msg);
